@@ -13,7 +13,7 @@
     "production": {
       "developmentClient": true,
       "distribution": "internal"
-    },
+    }
   },
   "submit": {
     "production": {}
