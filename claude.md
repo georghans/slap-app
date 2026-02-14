@@ -9,6 +9,8 @@ A mobile-first image board where users can upload photos of stickers they discov
 - **React 19** / **React Native 0.81** - UI framework
 - **Expo Router 6** - File-based routing and navigation
 - **React Navigation 7** - Navigation primitives (tabs, stacks, modals)
+- **React Native Reusables** - shadcn/ui-style components for React Native (built on NativeWind + Radix primitives)
+- **NativeWind** - Tailwind CSS for React Native (required by react-native-reusables)
 - **React Native Reanimated 4** - Performant animations
 - **TypeScript 5.9** - Type safety
 
@@ -91,7 +93,7 @@ slap/
 │   ├── _layout.tsx               # Root layout (auth check)
 │   └── +not-found.tsx            # 404 screen
 ├── components/
-│   ├── ui/                       # Generic UI components
+│   ├── ui/                       # react-native-reusables components (Button, Card, etc.)
 │   ├── posts/                    # Post-related components
 │   ├── map/                      # Map-related components
 │   └── auth/                     # Auth-related components
