@@ -1,8 +1,29 @@
-# Welcome to your Expo app 👋
+# SLAP - Sticker Location Archive Platform
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile-first image board where users upload photos of stickers they discover in the real world, tagged with location data. Browse stickers on a map or scroll through a feed.
 
-## Get started
+## Features
+
+- **Map View** - Browse sticker posts on a map centered on your location
+- **Feed View** - Scroll through posts sorted by date or distance
+- **Post Details** - View sticker image, description, location, likes, and comments
+- **Google Sign-In** - Authentication via Supabase OAuth
+
+## Tech Stack
+
+- **Frontend**: Expo SDK 54, React Native 0.81, TypeScript, Expo Router
+- **Backend**: Supabase (Auth, PostgreSQL, Storage, Edge Functions)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- [Expo Go](https://expo.dev/go) on your device (for development)
+- A [Supabase](https://supabase.com) project
+- Google OAuth credentials ([Google Cloud Console](https://console.cloud.google.com))
+
+### Setup
 
 1. Install dependencies
 
@@ -10,41 +31,49 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Copy `.env.example` and fill in your Supabase credentials
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   ```
+   EXPO_PUBLIC_SUPABASE_URL=your-supabase-project-url
+   EXPO_PUBLIC_SUPABASE_KEY=your-supabase-anon-key
+   ```
+
+3. Configure Supabase
+
+   - Enable **Google** provider under Authentication → Providers with your OAuth client ID and secret
+   - Set **Site URL** under Authentication → URL Configuration to your app's redirect URI
+   - Add `exp://**/auth/callback` to **Redirect URLs** for local development
+   - Install the [Supabase CLI](https://supabase.com/docs/guides/cli) and push migrations:
+
+     ```bash
+     supabase login
+     supabase link --project-ref your-project-ref
+     supabase db push
+     ```
+
+4. Start the app
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## Project Structure
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
 ```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+app/
+  (auth)/          # Sign-in screen (unauthenticated)
+  (tabs)/          # Map and Feed tabs (authenticated)
+  _layout.tsx      # Root layout with auth routing
+lib/
+  supabase.ts      # Supabase client config
+providers/
+  AuthProvider.tsx  # Auth context and Google OAuth flow
+hooks/
+  useAuth.ts       # Auth convenience hook
+supabase/
+  migrations/      # Database migrations (version controlled)
+```
