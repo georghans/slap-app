@@ -41,7 +41,20 @@
           }
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow SLAP to access your photos to upload sticker images.",
+          "cameraPermission": "Allow SLAP to use your camera to take photos of stickers."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow SLAP to use your location to tag where you found stickers."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
